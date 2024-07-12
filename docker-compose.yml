@@ -1,0 +1,30 @@
+version: "3"
+services:
+  backend:
+    build: 
+      context: .
+      dockerfile: ./build/package/Dockerfile.backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./cmd:/app/cmd
+      - ./pkg:/app/pkg
+      - ./.air.toml:/app/.air.toml
+    depends_on:
+      - db
+    
+  db:
+    image: postgres:alpine
+    container_name: db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5431:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+    driver: local
