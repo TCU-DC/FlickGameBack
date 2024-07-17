@@ -13,7 +13,7 @@ func CreateDefaultTable() {
 	defer db.Close()
 
 	var sql_stm []string = []string{
-		`create table IF NOT EXISTS "word" (word_id text PRIMARY KEY, word_text text NOT NULL, word_level text, point_allocation int)`,
+		`create table IF NOT EXISTS "word" (word_id text PRIMARY KEY, word_text text, word_furigana text, word_level text, point_allocation int)`,
 	}
 
 	for _, stm := range sql_stm {
