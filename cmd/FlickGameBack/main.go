@@ -2,18 +2,22 @@ package main
 
 import (
 	"FlickGameBack/pkg/db/create"
+	"FlickGameBack/pkg/engine"
+	"FlickGameBack/pkg/util"
 
 	"github.com/gin-gonic/gin"
 )
 
-func main() {
+func init() {
 	// デフォルトのテーブルを作成
 	create.CreateDefaultTable()
+
+	// デフォルトの単語を追加
+	util.AddWord()
+}
+
+func main() {
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "FlickGameBack",
-		})
-	})
+	r = engine.Engine(r)
 	r.Run(":8080")
 }
