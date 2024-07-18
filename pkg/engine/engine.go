@@ -2,6 +2,7 @@ package engine
 
 import (
 	"FlickGameBack/pkg/engine/core"
+	"FlickGameBack/pkg/engine/management"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,5 +14,6 @@ func Engine(r *gin.Engine) *gin.Engine {
 
 	// ルーティング
 	r.GET("/word-get", core.WordGet())
+	r.POST("/add-words", management.AddWord())
 	return r
 }
