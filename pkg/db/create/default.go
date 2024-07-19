@@ -18,10 +18,18 @@ func CreateDefaultTable() {
 		`create table IF NOT EXISTS "word" (word_id text PRIMARY KEY, word_text text UNIQUE NOT NULL, word_furigana text NOT NULL, word_level text, point_allocation int NOT NULL, FOREIGN KEY (word_level) REFERENCES level(level_name))`,
 	}
 
-	// レベルのデフォルト値を挿入easy, normal, hard
-	_, err := db.Exec(`insert into level (level_name) values ('easy'), ('normal'), ('hard')`)
+	// 存在しなければ, レベルのデフォルト値を挿入easy, normal, hard
+	_, err := db.Exec(`insert into level (level_name) select 'easy' where not exists (select * from level where level_name = 'easy')`)
 	if err != nil {
-		slog.Error("failed to insert default level", "err=", err)
+		slog.Error("failed to insert level", "err=", err)
+	}
+	_, err = db.Exec(`insert into level (level_name) select 'normal' where not exists (select * from level where level_name = 'normal')`)
+	if err != nil {
+		slog.Error("failed to insert level", "err=", err)
+	}
+	_, err = db.Exec(`insert into level (level_name) select 'hard' where not exists (select * from level where level_name = 'hard')`)
+	if err != nil {
+		slog.Error("failed to insert level", "err=", err)
 	}
 
 	for _, stm := range sql_stm {
