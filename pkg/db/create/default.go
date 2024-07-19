@@ -13,8 +13,9 @@ func CreateDefaultTable() {
 	defer db.Close()
 
 	var sql_stm []string = []string{
+		`create table IF NOT EXISTS "user" (user_id text PRIMARY KEY, username text UNIQUE NOT NULL, nickname text NOT NULL, password_hash text)`,
 		`create table IF NOT EXISTS "level" (level_name text PRIMARY KEY)`,
-		`create table IF NOT EXISTS "score" (score_id serial PRIMARY KEY, user_id text, point int, average_speed float, level text, FOREIGN KEY (level) REFERENCES level(level_name))`,
+		`create table IF NOT EXISTS "score" (score_id serial PRIMARY KEY, user_id text, point int, average_speed float, level text,FOREIGN KEY (user_id) REFERENCES "user"(user_id), FOREIGN KEY (level) REFERENCES "level"(level_name))`,
 		`create table IF NOT EXISTS "word" (word_id text PRIMARY KEY, word_text text UNIQUE NOT NULL, word_furigana text NOT NULL, word_level text, point_allocation int NOT NULL, FOREIGN KEY (word_level) REFERENCES level(level_name))`,
 	}
 
