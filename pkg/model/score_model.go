@@ -7,3 +7,8 @@ type Score struct {
 	AverageSpeed float64 `json:"average_speed"`
 	Level        string  `json:"level"`
 }
+
+type RequestScore struct {
+	Score
+	GuestName string `json:"guest_name"`
+}
