@@ -28,6 +28,14 @@ func ReadRanking(level string, high_order int) ([]model.Ranking, error) {
 		if err != nil {
 			return nil, err
 		}
+
+		// Nicknameを取得
+		nickname, err := GetNickname(r.UserID)
+		if err != nil {
+			return nil, err
+		}
+		r.NickName = nickname
+
 		ranking = append(ranking, r)
 	}
 
