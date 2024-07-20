@@ -37,7 +37,7 @@ func RegisterScore() gin.HandlerFunc {
 		}
 
 		// 得点情報を登録
-		err := create.InsertScore(req_score.UserID, req_score.Point, req_score.AverageSpeed, req_score.Level)
+		err := create.InsertScore(req_score.UserID, req_score.Point, req_score.Level)
 		if err != nil {
 			c.JSON(500, gin.H{"message": "failed to insert req_score"})
 			return
