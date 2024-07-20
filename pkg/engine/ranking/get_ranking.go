@@ -20,10 +20,10 @@ func GetRanking() gin.HandlerFunc {
 			return
 		}
 
-		// countパラメータをintに変換
+		// high_orderパラメータをintに変換
 		count, err := strconv.Atoi(count_str)
 		if err != nil {
-			c.JSON(400, gin.H{"error": "count must be an integer"})
+			c.JSON(400, gin.H{"error": "high_order must be an integer"})
 			return
 		}
 
@@ -35,6 +35,9 @@ func GetRanking() gin.HandlerFunc {
 		}
 
 		// レスポンス
-		c.JSON(200, gin.H{"data": ranking})
+		c.JSON(200, gin.H{
+			"level":   level,
+			"ranking": ranking,
+		})
 	}
 }
