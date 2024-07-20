@@ -11,3 +11,16 @@ func RandomString(n int) string {
 	}
 	return string(b)
 }
+
+// ランダムな任意の桁数の整数の生成
+func RandomInt(d int) int {
+	if d <= 0 {
+		return 0
+	}
+	min := 1
+	for i := 1; i < d; i++ {
+		min *= 10
+	}
+	max := min * 10
+	return rand.Intn(max-min) + min
+}
