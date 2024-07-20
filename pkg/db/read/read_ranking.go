@@ -14,7 +14,7 @@ func ReadRanking(level string, high_order int) ([]model.Ranking, error) {
 	defer db.Close()
 
 	// ランキングを取得
-	rows, err := db.Query(`SELECT user_id, point, level FROM "score" WHERE "level" = $1 ORDER BY point DESC LIMIT $2`, level, high_order)
+	rows, err := db.Query(`SELECT user_id, point FROM "score" WHERE "level" = $1 ORDER BY point DESC LIMIT $2`, level, high_order)
 	if err != nil {
 		return nil, err
 	}
@@ -24,7 +24,7 @@ func ReadRanking(level string, high_order int) ([]model.Ranking, error) {
 	ranking := make([]model.Ranking, 0)
 	for rows.Next() {
 		var r model.Ranking
-		err := rows.Scan(&r.UserID, &r.Score, &r.Level)
+		err := rows.Scan(&r.UserID, &r.Score)
 		if err != nil {
 			return nil, err
 		}
