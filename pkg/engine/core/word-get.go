@@ -34,7 +34,17 @@ func WordGet() gin.HandlerFunc {
 			return
 		}
 
+		// DBから制限時間を取得
+		limit_time, err := read.ReadLimitTime(level)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "failed to read limit time"})
+			return
+		}
+
 		// レスポンス
-		c.JSON(200, gin.H{"data": words})
+		c.JSON(200, gin.H{
+			"limit_time": limit_time,
+			"words":      words,
+		})
 	}
 }
