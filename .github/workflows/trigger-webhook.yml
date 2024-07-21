@@ -1,0 +1,19 @@
+name: Trigger Webhook
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  trigger-webhook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send webhook payload
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"ref": "refs/heads/develop"}' \
+          $WEBHOOK_URL
