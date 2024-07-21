@@ -3,7 +3,7 @@ name: Trigger Webhook
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   trigger-webhook:
@@ -15,5 +15,5 @@ jobs:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"ref": "refs/heads/develop"}' \
+          -d '{"ref": "refs/heads/main"}' \
           $WEBHOOK_URL
