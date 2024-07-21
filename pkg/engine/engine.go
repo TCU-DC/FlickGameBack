@@ -25,5 +25,6 @@ func Engine(r *gin.Engine) *gin.Engine {
 	r.GET("/room-join", socket.JoinRoomSession)
 	// ソケット通信エンドポイント
 	r.GET("/room/:id", socket.HandleWebSocket)
+	r.GET("/room-result/:id", socket.HandleResultWebSocket)
 	return r
 }
